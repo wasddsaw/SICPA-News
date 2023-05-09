@@ -29,10 +29,14 @@ class HomeController extends GetxController {
     articlesDao ??= await DatabaseUtil().getArticlesDaoAsync();
   }
 
-  Future<void> getMostViewed(int period) async {
+  Future<void> getMostPopular(int period, int type) async {
     OverlayUtils.showLoading();
     try {
-      final response = await mostPopularRepository.mostViewed(period);
+      final response = type == 0
+          ? await mostPopularRepository.mostViewed(period)
+          : (type == 2
+              ? await mostPopularRepository.mostEmailed(period)
+              : await mostPopularRepository.mostEmailed(period));
       if (response['status'] == 'OK') {
         for (var r in response['results']) {
           articlesDao?.insertArticle(

@@ -84,13 +84,11 @@ class HomeScreen extends GetView<HomeController> {
                   final pp = controller.popular[index];
                   return ListTile(
                     onTap: () {
-                      if (pp['id'] == 0) {
-                        controller.getMostViewed(30).then((_) {
-                          Get.toNamed(ArticleScreen.routeName)?.then((_) {
-                            controller.deleteAllArticles();
-                          });
+                      controller.getMostPopular(1, pp['id']).then((_) {
+                        Get.toNamed(ArticleScreen.routeName)?.then((_) {
+                          controller.deleteAllArticles();
                         });
-                      }
+                      });
                     },
                     title: Text(
                       pp['title'],
