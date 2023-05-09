@@ -28,6 +28,20 @@ class MostPopularRepositoryImpl implements MostPopularRepository {
   }
 
   @override
+  Future mostShared(int period) async {
+    debugPrint('get mostShared');
+    try {
+      final response = await remoteDataSource.mostShared(period);
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+      throw response;
+    } on DioError catch (err) {
+      return Future.error(err);
+    }
+  }
+
+  @override
   Future mostEmailed(int period) async {
     debugPrint('get mostEmailed');
     try {

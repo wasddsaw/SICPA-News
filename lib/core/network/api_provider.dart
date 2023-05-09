@@ -4,6 +4,7 @@ import 'package:sicpa_news/core/network/api_interceptor.dart';
 abstract class ApiProvider {
   Future<Response> mostViewed(int period);
   Future<Response> mostEmailed(int period);
+  Future<Response> mostShared(int period);
 }
 
 class Const {
@@ -33,6 +34,13 @@ class ApiProviderImpl implements ApiProvider {
   Future<Response> mostViewed(int period) {
     return _dio.get(
       "/mostpopular/v2/viewed/$period.json?api-key=8HIf7k7xdIFZQU8w74jLqoXscCpKkAVZ",
+    );
+  }
+
+  @override
+  Future<Response> mostShared(int period) {
+    return _dio.get(
+      "/mostpopular/v2/shared/$period.json?api-key=8HIf7k7xdIFZQU8w74jLqoXscCpKkAVZ",
     );
   }
 

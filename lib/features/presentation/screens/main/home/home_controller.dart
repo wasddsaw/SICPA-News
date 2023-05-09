@@ -34,8 +34,8 @@ class HomeController extends GetxController {
     try {
       final response = type == 0
           ? await mostPopularRepository.mostViewed(period)
-          : (type == 2
-              ? await mostPopularRepository.mostEmailed(period)
+          : (type == 1
+              ? await mostPopularRepository.mostShared(period)
               : await mostPopularRepository.mostEmailed(period));
       if (response['status'] == 'OK') {
         for (var r in response['results']) {
