@@ -1,6 +1,7 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sicpa_news/features/presentation/screens/main/article/article_screen.dart';
 import 'package:sicpa_news/features/presentation/screens/main/home/home_controller.dart';
 import 'package:sicpa_news/features/presentation/utils/common.dart';
 
@@ -83,7 +84,13 @@ class HomeScreen extends GetView<HomeController> {
                   final pp = controller.popular[index];
                   return ListTile(
                     onTap: () {
-                      debugPrint(pp['id'].toString());
+                      if (pp['id'] == 0) {
+                        controller.getMostViewed(30).then((_) {
+                          Get.toNamed(ArticleScreen.routeName)?.then((_) {
+                            controller.deleteAllArticles();
+                          });
+                        });
+                      }
                     },
                     title: Text(
                       pp['title'],

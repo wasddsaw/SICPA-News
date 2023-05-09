@@ -61,7 +61,7 @@ class _$AppDatabase extends AppDatabase {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
-  TodoDao? _todoDaoInstance;
+  ArticlesDao? _articlesDaoInstance;
 
   Future<sqflite.Database> open(
     String path,
@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Todo` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT, `startDate` TEXT, `endDate` TEXT, `status` TEXT)');
+            'CREATE TABLE IF NOT EXISTS `Articles` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT, `datePublished` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -94,47 +94,41 @@ class _$AppDatabase extends AppDatabase {
   }
 
   @override
-  TodoDao get todoDao {
-    return _todoDaoInstance ??= _$TodoDao(database, changeListener);
+  ArticlesDao get articlesDao {
+    return _articlesDaoInstance ??= _$ArticlesDao(database, changeListener);
   }
 }
 
-class _$TodoDao extends TodoDao {
-  _$TodoDao(
+class _$ArticlesDao extends ArticlesDao {
+  _$ArticlesDao(
     this.database,
     this.changeListener,
   )   : _queryAdapter = QueryAdapter(database),
-        _todoInsertionAdapter = InsertionAdapter(
+        _articlesInsertionAdapter = InsertionAdapter(
             database,
-            'Todo',
-            (Todo item) => <String, Object?>{
+            'Articles',
+            (Articles item) => <String, Object?>{
                   'id': item.id,
                   'title': item.title,
-                  'startDate': item.startDate,
-                  'endDate': item.endDate,
-                  'status': item.status
+                  'datePublished': item.datePublished
                 }),
-        _todoUpdateAdapter = UpdateAdapter(
+        _articlesUpdateAdapter = UpdateAdapter(
             database,
-            'Todo',
+            'Articles',
             ['id'],
-            (Todo item) => <String, Object?>{
+            (Articles item) => <String, Object?>{
                   'id': item.id,
                   'title': item.title,
-                  'startDate': item.startDate,
-                  'endDate': item.endDate,
-                  'status': item.status
+                  'datePublished': item.datePublished
                 }),
-        _todoDeletionAdapter = DeletionAdapter(
+        _articlesDeletionAdapter = DeletionAdapter(
             database,
-            'Todo',
+            'Articles',
             ['id'],
-            (Todo item) => <String, Object?>{
+            (Articles item) => <String, Object?>{
                   'id': item.id,
                   'title': item.title,
-                  'startDate': item.startDate,
-                  'endDate': item.endDate,
-                  'status': item.status
+                  'datePublished': item.datePublished
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -143,48 +137,44 @@ class _$TodoDao extends TodoDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<Todo> _todoInsertionAdapter;
+  final InsertionAdapter<Articles> _articlesInsertionAdapter;
 
-  final UpdateAdapter<Todo> _todoUpdateAdapter;
+  final UpdateAdapter<Articles> _articlesUpdateAdapter;
 
-  final DeletionAdapter<Todo> _todoDeletionAdapter;
+  final DeletionAdapter<Articles> _articlesDeletionAdapter;
 
   @override
-  Future<List<Todo>> getAllTodo() async {
-    return _queryAdapter.queryList('SELECT * FROM Todo',
-        mapper: (Map<String, Object?> row) => Todo(
-            row['id'] as int?,
-            row['title'] as String?,
-            row['startDate'] as String?,
-            row['endDate'] as String?,
-            row['status'] as String?));
+  Future<List<Articles>> getAllArticles() async {
+    return _queryAdapter.queryList('SELECT * FROM Articles',
+        mapper: (Map<String, Object?> row) => Articles(row['id'] as int?,
+            row['title'] as String?, row['datePublished'] as String?));
   }
 
   @override
-  Future<void> deleteAllTodo() async {
-    await _queryAdapter.queryNoReturn('DELETE FROM Todo');
+  Future<void> deleteAllArticles() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM Articles');
   }
 
   @override
-  Future<int> insertTodo(Todo item) {
-    return _todoInsertionAdapter.insertAndReturnId(
+  Future<int> insertArticle(Articles item) {
+    return _articlesInsertionAdapter.insertAndReturnId(
         item, OnConflictStrategy.replace);
   }
 
   @override
-  Future<int> updateTodo(Todo item) {
-    return _todoUpdateAdapter.updateAndReturnChangedRows(
+  Future<int> updateArticle(Articles item) {
+    return _articlesUpdateAdapter.updateAndReturnChangedRows(
         item, OnConflictStrategy.replace);
   }
 
   @override
-  Future<int> updateMultipleTodo(List<Todo> items) {
-    return _todoUpdateAdapter.updateListAndReturnChangedRows(
+  Future<int> updateMultipleArticles(List<Articles> items) {
+    return _articlesUpdateAdapter.updateListAndReturnChangedRows(
         items, OnConflictStrategy.replace);
   }
 
   @override
-  Future<void> deleteTodo(Todo todo) async {
-    await _todoDeletionAdapter.delete(todo);
+  Future<void> deleteArticle(Articles todo) async {
+    await _articlesDeletionAdapter.delete(todo);
   }
 }

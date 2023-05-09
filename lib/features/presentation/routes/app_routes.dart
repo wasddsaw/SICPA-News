@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:sicpa_news/features/presentation/screens/main/article/article_binding.dart';
+import 'package:sicpa_news/features/presentation/screens/main/article/article_screen.dart';
 import 'package:sicpa_news/features/presentation/screens/main/home/home_binding.dart';
 import 'package:sicpa_news/features/presentation/screens/main/home/home_screen.dart';
 import 'package:sicpa_news/features/presentation/screens/splash/splash_binding.dart';
@@ -18,6 +20,11 @@ class AppRoutes {
         name: HomeScreen.routeName,
         page: () => const HomeScreen(),
         binding: HomeBinding(),
+      ),
+      GetPage(
+        name: ArticleScreen.routeName,
+        page: () => const ArticleScreen(),
+        binding: ArticleBinding(),
       ),
     ];
   }

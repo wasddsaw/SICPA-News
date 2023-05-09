@@ -1,10 +1,10 @@
 import 'package:floor/floor.dart';
-import 'package:sicpa_news/core/database/dao/todo_dao.dart';
+import 'package:sicpa_news/core/database/dao/articles_dao.dart';
 import 'app_database.dart';
 
 class DatabaseUtil {
   static final DatabaseUtil instance = DatabaseUtil.init();
-  static TodoDao? todoDao;
+  static ArticlesDao? articlesDao;
 
   factory DatabaseUtil() {
     return instance;
@@ -21,28 +21,28 @@ class DatabaseUtil {
         .build();
 
     database.then((value) {
-      todoDao = value.todoDao;
+      articlesDao = value.articlesDao;
     });
   }
 
-  TodoDao? getTodoDao() {
-    if (todoDao == null) {
+  ArticlesDao? getArticlesDao() {
+    if (articlesDao == null) {
       initDB();
       return null;
     } else {
-      return todoDao;
+      return articlesDao;
     }
   }
 
-  Future<TodoDao?> getTodoDaoAsync() async {
+  Future<ArticlesDao?> getArticlesDaoAsync() async {
     AppDatabase database = await $FloorAppDatabase
         .databaseBuilder('app_database.db')
         //.addMigrations([migration1to2])
         .build();
 
-    todoDao = database.todoDao;
+    articlesDao = database.articlesDao;
 
-    return todoDao;
+    return articlesDao;
   }
 
   /*

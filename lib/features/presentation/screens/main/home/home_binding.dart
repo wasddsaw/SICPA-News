@@ -5,10 +5,10 @@ class HomeBinding extends Bindings {
   @override
   void dependencies() async {
     Get.lazyPut(
-      () => HomeController(),
+      () => HomeController(mostPopularRepository: Get.find()),
     );
     Get.put(
-      HomeController(),
+      HomeController(mostPopularRepository: Get.find()),
     );
   }
 }

@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sicpa_news/features/presentation/routes/app_routes.dart';
 import 'package:sicpa_news/features/presentation/utils/app_theme.dart';
+import 'package:sicpa_news/main_binding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await MainBinding().dependencies();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(App());
