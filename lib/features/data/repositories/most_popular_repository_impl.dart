@@ -54,4 +54,29 @@ class MostPopularRepositoryImpl implements MostPopularRepository {
       return Future.error(err);
     }
   }
+
+  @override
+  Future articleSearch(
+      String beginDate,
+      String endDate,
+      String facet,
+      String facetFields,
+      String facetFilter,
+      String f1,
+      String fq,
+      int page,
+      String query,
+      String sort) async {
+    debugPrint('get articleSearch');
+    try {
+      final response = await remoteDataSource.articleSearch(beginDate, endDate,
+          facet, facetFields, facetFilter, f1, fq, page, query, sort);
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+      throw response;
+    } on DioError catch (err) {
+      return Future.error(err);
+    }
+  }
 }

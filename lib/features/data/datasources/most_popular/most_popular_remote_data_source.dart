@@ -5,6 +5,17 @@ abstract class MostPopularRemoteDataSource {
   Future<Response> mostViewed(int period);
   Future<Response> mostShared(int period);
   Future<Response> mostEmailed(int period);
+  Future<Response> articleSearch(
+      String beginDate,
+      String endDate,
+      String facet,
+      String facetFields,
+      String facetFilter,
+      String f1,
+      String fq,
+      int page,
+      String query,
+      String sort);
 }
 
 class MostPopularRemoteDataSourceImpl implements MostPopularRemoteDataSource {
@@ -25,5 +36,21 @@ class MostPopularRemoteDataSourceImpl implements MostPopularRemoteDataSource {
   @override
   Future<Response> mostEmailed(int period) {
     return apiProvider.mostEmailed(period);
+  }
+
+  @override
+  Future<Response> articleSearch(
+      String beginDate,
+      String endDate,
+      String facet,
+      String facetFields,
+      String facetFilter,
+      String f1,
+      String fq,
+      int page,
+      String query,
+      String sort) {
+    return apiProvider.articleSearch(beginDate, endDate, facet, facetFields,
+        facetFilter, f1, fq, page, query, sort);
   }
 }

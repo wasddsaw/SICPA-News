@@ -5,6 +5,17 @@ abstract class ApiProvider {
   Future<Response> mostViewed(int period);
   Future<Response> mostEmailed(int period);
   Future<Response> mostShared(int period);
+  Future<Response> articleSearch(
+      String beginDate,
+      String endDate,
+      String facet,
+      String facetFields,
+      String facetFilter,
+      String f1,
+      String fq,
+      int page,
+      String query,
+      String sort);
 }
 
 class Const {
@@ -48,6 +59,35 @@ class ApiProviderImpl implements ApiProvider {
   Future<Response> mostEmailed(int period) {
     return _dio.get(
       "/mostpopular/v2/emailed/$period.json?api-key=8HIf7k7xdIFZQU8w74jLqoXscCpKkAVZ",
+    );
+  }
+
+  @override
+  Future<Response> articleSearch(
+      String beginDate,
+      String endDate,
+      String facet,
+      String facetFields,
+      String facetFilter,
+      String f1,
+      String fq,
+      int page,
+      String query,
+      String sort) {
+    return _dio.get(
+      "/search/v2/articlesearch.json?api-key=8HIf7k7xdIFZQU8w74jLqoXscCpKkAVZ",
+      queryParameters: {
+        // "begin_date": beginDate,
+        // "end_date": endDate,
+        // "facet": facet,
+        // "facet_fields": facetFields,
+        // "facet_filter": facetFilter,
+        // "fl": f1,
+        // "fq": fq,
+        "page": page,
+        "q": query,
+        // "sort": sort,
+      },
     );
   }
 }

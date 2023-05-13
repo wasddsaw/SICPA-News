@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sicpa_news/features/presentation/screens/main/article/article_screen.dart';
 import 'package:sicpa_news/features/presentation/screens/main/home/home_controller.dart';
+import 'package:sicpa_news/features/presentation/screens/main/search/search_screen.dart';
 import 'package:sicpa_news/features/presentation/utils/common.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -42,7 +43,7 @@ class HomeScreen extends GetView<HomeController> {
                   final ss = controller.search[index];
                   return ListTile(
                     onTap: () {
-                      debugPrint(ss['id'].toString());
+                      Get.toNamed(SearchScreen.routeName);
                     },
                     title: Text(
                       ss['title'],

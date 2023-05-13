@@ -3,6 +3,8 @@ import 'package:sicpa_news/features/presentation/screens/main/article/article_bi
 import 'package:sicpa_news/features/presentation/screens/main/article/article_screen.dart';
 import 'package:sicpa_news/features/presentation/screens/main/home/home_binding.dart';
 import 'package:sicpa_news/features/presentation/screens/main/home/home_screen.dart';
+import 'package:sicpa_news/features/presentation/screens/main/search/search_binding.dart';
+import 'package:sicpa_news/features/presentation/screens/main/search/search_screen.dart';
 import 'package:sicpa_news/features/presentation/screens/splash/splash_binding.dart';
 import 'package:sicpa_news/features/presentation/screens/splash/splash_screen.dart';
 
@@ -25,6 +27,11 @@ class AppRoutes {
         name: ArticleScreen.routeName,
         page: () => const ArticleScreen(),
         binding: ArticleBinding(),
+      ),
+      GetPage(
+        name: SearchScreen.routeName,
+        page: () => const SearchScreen(),
+        binding: SearchBinding(),
       ),
     ];
   }
