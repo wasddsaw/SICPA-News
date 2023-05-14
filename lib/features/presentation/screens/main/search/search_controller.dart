@@ -8,6 +8,8 @@ import 'package:dio/dio.dart' as dio;
 import 'package:sicpa_news/features/presentation/utils/overlay_utils.dart';
 
 class SearchController extends GetxController {
+  static SearchController get find => Get.find();
+
   late MostPopularRepository mostPopularRepository;
 
   SearchController({
@@ -15,8 +17,10 @@ class SearchController extends GetxController {
   });
 
   TextEditingController searchController = TextEditingController(text: "");
-
   ArticlesDao? articlesDao;
+  RxInt countPage = RxInt(0);
+  RxInt offset = RxInt(0);
+  RxBool isError = RxBool(false);
 
   @override
   void onInit() async {
@@ -36,10 +40,15 @@ class SearchController extends GetxController {
       int page,
       String query,
       String sort) async {
-    OverlayUtils.showLoading();
+    if (countPage.value == 0) {
+      OverlayUtils.showLoading();
+    }
     try {
       final response = await mostPopularRepository.articleSearch(beginDate,
           endDate, facet, facetFields, facetFilter, f1, fq, page, query, sort);
+      debugPrint('offset: ${response['response']['meta']['offset']}');
+      debugPrint('articles count: ${response['response']['docs'].length}');
+      offset.value = response['response']['meta']['offset'];
       if (response['status'] == 'OK') {
         for (var r in response['response']['docs']) {
           articlesDao?.insertArticle(
@@ -50,11 +59,14 @@ class SearchController extends GetxController {
             ),
           );
         }
+        isError(false);
       }
     } catch (error) {
       var message = "Response error, please try again";
       if (error is dio.Response) {
-        message = error.data;
+        if (error.statusCode == 429) {
+          message = error.data['fault']['faultstring'];
+        }
       }
       Get.showSnackbar(
         GetSnackBar(
@@ -63,11 +75,15 @@ class SearchController extends GetxController {
         ),
       );
       debugPrint('$error');
+      isError(true);
     }
-    OverlayUtils.closeLoading();
+    if (countPage.value == 0) {
+      OverlayUtils.closeLoading();
+    }
   }
 
   void deleteAllArticles() {
     articlesDao?.deleteAllArticles();
+    countPage.value = 0;
   }
 }

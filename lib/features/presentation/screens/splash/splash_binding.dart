@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:sicpa_news/features/presentation/screens/main/search/search_controller.dart';
 import 'package:sicpa_news/features/presentation/screens/splash/splash_controller.dart';
 
 class SplashBinding extends Bindings {
@@ -10,6 +11,12 @@ class SplashBinding extends Bindings {
     );
     Get.put(
       SplashController(),
+      permanent: true,
+    );
+    Get.put(
+      SearchController(
+        mostPopularRepository: Get.find(),
+      ),
       permanent: true,
     );
   }

@@ -33,10 +33,25 @@ class SearchScreen extends GetView<SearchController> {
                 label: 'Search',
                 onPressed: () {
                   controller
-                      .getArticlesSearch('', '', '', '', '', '', '', 0,
-                          controller.searchController.text, '')
+                      .getArticlesSearch(
+                          '',
+                          '',
+                          '',
+                          '',
+                          '',
+                          '',
+                          '',
+                          controller.countPage.value,
+                          controller.searchController.text,
+                          '')
                       .then((_) {
-                    Get.toNamed(ArticleScreen.routeName)?.then((_) {
+                    controller.countPage(1);
+                    Get.toNamed(
+                      ArticleScreen.routeName,
+                      arguments: {
+                        'searchTxt': controller.searchController.text,
+                      },
+                    )?.then((_) {
                       controller.deleteAllArticles();
                     });
                   });
