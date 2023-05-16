@@ -38,6 +38,7 @@ class HomeController extends GetxController {
               ? await mostPopularRepository.mostShared(period)
               : await mostPopularRepository.mostEmailed(period));
       if (response['status'] == 'OK') {
+        deleteAllArticles();
         for (var r in response['results']) {
           articlesDao?.insertArticle(
             Articles(
