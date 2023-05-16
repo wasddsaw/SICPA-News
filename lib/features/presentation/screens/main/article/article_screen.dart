@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:sicpa_news/features/presentation/components/shared/shared.dart';
 import 'package:sicpa_news/features/presentation/screens/main/article/article_controller.dart';
-import 'package:sicpa_news/features/presentation/screens/main/search/search_controller.dart';
+import 'package:sicpa_news/features/presentation/screens/main/search/search_controller.dart'
+    as sc;
 import 'package:sicpa_news/features/presentation/utils/common.dart';
 
 class ArticleScreen extends GetView<ArticleController> {
@@ -37,7 +38,8 @@ class ArticleScreen extends GetView<ArticleController> {
               );
             } else {
               return Visibility(
-                visible: SearchController.find.isError.isFalse ? true : false,
+                visible:
+                    sc.SearchController.find.isError.isFalse ? true : false,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32),
                   child: Center(

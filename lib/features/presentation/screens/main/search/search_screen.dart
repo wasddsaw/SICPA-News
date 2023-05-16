@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sicpa_news/features/presentation/components/shared/shared.dart';
 import 'package:sicpa_news/features/presentation/screens/main/article/article_screen.dart';
-import 'package:sicpa_news/features/presentation/screens/main/search/search_controller.dart';
+import 'package:sicpa_news/features/presentation/screens/main/search/search_controller.dart'
+    as sc;
 
-class SearchScreen extends GetView<SearchController> {
+class SearchScreen extends GetView<sc.SearchController> {
   const SearchScreen({super.key});
 
   static const routeName = '/search';

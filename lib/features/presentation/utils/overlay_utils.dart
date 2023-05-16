@@ -16,9 +16,9 @@ class OverlayUtils {
 
   static void showLoading({String? message}) {
     Get.dialog(
-      AlertDialog(
+      const AlertDialog(
         content: Wrap(
-          children: const [
+          children: [
             LoadingIndicator(),
           ],
         ),

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sicpa_news/features/presentation/screens/main/article/article_screen.dart';
 import 'package:sicpa_news/features/presentation/screens/main/home/home_controller.dart';
 import 'package:sicpa_news/features/presentation/screens/main/search/search_screen.dart';
+import 'package:sicpa_news/features/presentation/screens/splash/splash_controller.dart';
 import 'package:sicpa_news/features/presentation/utils/common.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -107,6 +108,18 @@ class HomeScreen extends GetView<HomeController> {
                     child: Divider(),
                   );
                 },
+              ),
+            ),
+          ),
+          Expanded(
+            child: Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Obx(
+                  () => Text(
+                      'Latitude: ${SplashController.find.currentPosition.value?.latitude}, Longitude: ${SplashController.find.currentPosition.value?.longitude}'),
+                ),
               ),
             ),
           ),

@@ -6,6 +6,7 @@ import 'package:sicpa_news/core/network/api_provider.dart';
 import 'package:sicpa_news/features/data/datasources/most_popular/most_popular_remote_data_source.dart';
 import 'package:sicpa_news/features/data/repositories/most_popular_repository_impl.dart';
 import 'package:sicpa_news/features/domain/repositories/most_popular_repository.dart';
+import 'package:sicpa_news/features/presentation/screens/splash/splash_controller.dart';
 
 import 'core/network/api_interceptor.dart';
 
@@ -44,6 +45,10 @@ class MainBinding extends Bindings {
         remoteDataSource: Get.find(),
         apiProvider: Get.find(),
       ),
+      permanent: true,
+    );
+    Get.put(
+      SplashController(),
       permanent: true,
     );
   }
